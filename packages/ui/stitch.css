@@ -1,0 +1,84 @@
+:root {
+  /* Colors */
+  --bg-deep: #0A0A0B;
+  --bg-card: rgba(22, 22, 26, 0.7);
+  --bg-glass: rgba(255, 255, 255, 0.05);
+  
+  --primary: #3B82F6; /* Electric Blue */
+  --primary-glow: rgba(59, 130, 246, 0.5);
+  
+  --secondary: #8B5CF6; /* Royal Violet */
+  --secondary-glow: rgba(139, 92, 246, 0.5);
+  
+  --accent: #10B981; /* Emerald Green */
+  
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --text-dim: #64748B;
+  
+  --border-glass: rgba(255, 255, 255, 0.1);
+  --border-active: rgba(59, 130, 246, 0.3);
+
+  /* Shadows & Effects */
+  --shadow-glow: 0 0 20px var(--primary-glow);
+  --glass-blur: blur(12px);
+  
+  /* Spacing */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+}
+
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.stitch-card {
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stitch-card:hover {
+  border-color: var(--border-active);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+.stitch-button {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.stitch-button:hover {
+  opacity: 0.9;
+}
+
+.stitch-button:active {
+  transform: scale(0.98);
+}
+
+.glass-pill {
+  background: var(--bg-glass);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-glass);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
