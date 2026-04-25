@@ -56,5 +56,4 @@ Explore our technical deep-dives:
 
 ---
 
-## ⚖️ License
-UNLICENSED - Custom commercial project. Developed with ❤️ by Antigravity.
+
