@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  RIDER
+  DRIVER
+  ADMIN
+}
+
+enum RideStatus {
+  REQUESTED
+  ACCEPTED
+  ARRIVED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  name          String?
+  phone         String?   @unique
+  password      String?
+  role          UserRole  @default(RIDER)
+  avatar        String?
+  rating        Float     @default(5.0)
+  
+  // Rider specific
+  ridesAsRider  Ride[]    @relation("RiderRelation")
+  
+  // Driver specific
+  isActive      Boolean   @default(false)
+  currentLat    Float?
+  currentLong   Float?
+  ridesAsDriver Ride[]    @relation("DriverRelation")
+  vehicle       Vehicle?
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Vehicle {
+  id        String   @id @default(uuid())
+  make      String
+  model     String
+  year      Int
+  plate     String   @unique
+  color     String
+  driver    User     @relation(fields: [driverId], references: [id])
+  driverId  String   @unique
+}
+
+model Ride {
+  id              String      @id @default(uuid())
+  status          RideStatus  @default(REQUESTED)
+  
+  rider           User        @relation("RiderRelation", fields: [riderId], references: [id])
+  riderId         String
+  
+  driver          User?       @relation("DriverRelation", fields: [driverId], references: [id])
+  driverId        String?
+  
+  pickupLat       Float
+  pickupLong      Float
+  pickupAddress   String
+  
+  dropoffLat      Float
+  dropoffLong     Float
+  dropoffAddress  String
+  
+  fare            Float
+  distance        Float?
+  duration        Float?
+  
+  paymentStatus   String      @default("PENDING")
+  
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
